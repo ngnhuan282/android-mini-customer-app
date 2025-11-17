@@ -1,6 +1,9 @@
 package com.example.btqt02;
 
+import android.content.Intent;
 import android.os.Bundle;
+import android.view.View;
+import android.widget.Button;
 import android.widget.ListView;
 
 import androidx.activity.EdgeToEdge;
@@ -15,6 +18,7 @@ public class PointListActivity extends AppCompatActivity {
     ArrayList<Customer> customerList;
     CustomerAdapter adapter;
     ListView lv;
+    Button btnInput, btnUse, btnList;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -31,11 +35,43 @@ public class PointListActivity extends AppCompatActivity {
 
         // Tạo list dữ liệu
         customerList = new ArrayList<>();
-        customerList.add(new Customer("0934123456", 20, "2025-11-17", "2025-11-18", "abcd"));
-        customerList.add(new Customer("0909999999", 50, "2025-11-12", "2025-11-15", "VIP"));
+        customerList.add(new Customer("0934123456", 20, "abcd", "2025-11-17", "2025-11-18"));
+        customerList.add(new Customer("0909999999", 50,"VIP", "2025-11-12", "2025-11-15"));
 
         adapter = new CustomerAdapter(PointListActivity.this, customerList);
         adapter.notifyDataSetChanged();
         lv.setAdapter(adapter);
+
+        // Ánh xạ id của các button
+        btnInput = findViewById(R.id.btnInputFromListActivity);
+        btnUse = findViewById(R.id.btnUseFromListActivity);
+        btnList = findViewById(R.id.btnListFromListActivity);
+
+        btnInput.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(PointListActivity.this, InputPointActivity.class);
+                startActivity(intent);
+                finish();
+            }
+        });
+
+        btnUse.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(PointListActivity.this, UsePointActivity.class);
+                startActivity(intent);
+                finish();
+            }
+        });
+
+        btnList.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(PointListActivity.this, PointListActivity.class);
+                startActivity(intent);
+                finish();
+            }
+        });
     }
 }
