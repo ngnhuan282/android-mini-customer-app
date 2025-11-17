@@ -12,6 +12,15 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.BTQT02">
         <activity
+            android:name=".PointListActivity"
+            android:exported="false" />
+        <activity
+            android:name=".InputPointActivity"
+            android:exported="false" />
+        <activity
+            android:name=".UsePointActivity"
+            android:exported="false" />
+        <activity
             android:name=".LoginActivity"
             android:exported="false" />
         <activity

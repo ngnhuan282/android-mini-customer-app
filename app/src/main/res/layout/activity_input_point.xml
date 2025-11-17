@@ -1,0 +1,127 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <!-- FORM -->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <TextView
+            android:id="@+id/txtInputPoint"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="INPUT POINT"
+            android:textAlignment="center"
+            android:textSize="24sp" />
+
+        <TextView
+            android:id="@+id/txtCustomerInputPhone"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Customer's phone"
+            android:textSize="20sp" />
+
+        <EditText
+            android:id="@+id/edtCustomerInputPhone"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:ems="10"
+            android:inputType="text" />
+
+        <TextView
+            android:id="@+id/txtCurrentInputPoint"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Current point"
+            android:textSize="20sp" />
+
+        <EditText
+            android:id="@+id/edtCurrentInputPoint"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:ems="10"
+            android:inputType="number" />
+
+        <TextView
+            android:id="@+id/txtNoteInput"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Note"
+            android:textSize="20sp" />
+
+        <EditText
+            android:id="@+id/edtNoteInput"
+            android:layout_width="match_parent"
+            android:layout_height="120dp"
+            android:ems="10"
+            android:inputType="text" />
+
+    </LinearLayout>
+
+    <!-- 2 BUTTON SAVE (ở dưới form, KHÔNG dính đáy) -->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:padding="8dp">
+
+        <Button
+            android:id="@+id/btnSave"
+            android:layout_width="0dp"
+            android:layout_height="50dp"
+            android:layout_weight="1"
+            android:backgroundTint="#388E3C"
+            android:text="Save"
+            android:textSize="16sp" />
+
+        <Button
+            android:id="@+id/btnSaveAndNext"
+            android:layout_width="0dp"
+            android:layout_height="50dp"
+            android:layout_weight="1"
+            android:backgroundTint="#F44336"
+            android:text="Save &amp; Next"
+            android:textSize="16sp" />
+    </LinearLayout>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="243dp"
+        android:layout_weight="1" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="60dp"
+        android:orientation="horizontal"
+        android:padding="8dp">
+
+        <Button
+            android:id="@+id/btnInput"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:backgroundTint="#F48FB1"
+            android:text="INPUT" />
+
+        <Button
+            android:id="@+id/btnUse"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:backgroundTint="#F48FB1"
+            android:text="USE" />
+
+        <Button
+            android:id="@+id/btnList"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:backgroundTint="#F48FB1"
+            android:text="LIST" />
+    </LinearLayout>
+
+</LinearLayout>
