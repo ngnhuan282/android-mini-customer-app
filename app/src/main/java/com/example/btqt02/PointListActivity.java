@@ -1,6 +1,8 @@
 package com.example.btqt02;
 
 import android.content.Intent;
+import android.database.Cursor;
+import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
@@ -18,6 +20,7 @@ public class PointListActivity extends AppCompatActivity {
     ArrayList<Customer> customerList;
     CustomerAdapter adapter;
     ListView lv;
+    MyDatabaseHelper dbHelper;
     Button btnInput, btnUse, btnList;
 
     @Override
@@ -31,16 +34,18 @@ public class PointListActivity extends AppCompatActivity {
             return insets;
         });
 
+        dbHelper = new MyDatabaseHelper(this);
         lv = findViewById(R.id.lvCustomers);
 
         // Tạo list dữ liệu
         customerList = new ArrayList<>();
-        customerList.add(new Customer("0934123456", 20, "abcd", "2025-11-17", "2025-11-18"));
-        customerList.add(new Customer("0909999999", 50,"VIP", "2025-11-12", "2025-11-15"));
+//        customerList.add(new Customer("0934123456", 20, "abcd", "2025-11-17", "2025-11-18"));
+//        customerList.add(new Customer("0909999999", 50,"VIP", "2025-11-12", "2025-11-15"));
 
         adapter = new CustomerAdapter(PointListActivity.this, customerList);
         adapter.notifyDataSetChanged();
         lv.setAdapter(adapter);
+        loadData();
 
         // Ánh xạ id của các button
         btnInput = findViewById(R.id.btnInputFromListActivity);
@@ -73,5 +78,34 @@ public class PointListActivity extends AppCompatActivity {
                 finish();
             }
         });
+    }
+
+    private void loadData()
+    {
+        customerList.clear();
+
+        SQLiteDatabase db = dbHelper.getReadableDatabase();
+        Cursor cursor = db.rawQuery("SELECT phone, point, note, createdAt, updatedAt " +
+                "FROM Customers ORDER BY updatedAt DESC", null);
+
+        while(cursor.moveToNext())
+        {
+            customerList.add(new Customer(
+                    cursor.getString(0), // phone
+                    cursor.getInt(1), // point
+                    cursor.getString(2), // note
+                    cursor.getString(3), // createdAt
+                    cursor.getString(4) // updatedAt
+            ));
+        }
+        cursor.close();
+        adapter.notifyDataSetChanged();
+    }
+
+    // Tải lại dữ liệu khi chuyển từ InputPointActivity hoặc UsePointActivity
+    @Override
+    protected void onResume() {
+        super.onResume();
+        loadData();
     }
 }

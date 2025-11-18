@@ -20,14 +20,14 @@
             android:textSize="24sp" />
 
         <TextView
-            android:id="@+id/txtCustomerUsePhone"
+            android:id="@+id/txtUsePhone"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="Customer's phone"
             android:textSize="20sp" />
 
         <EditText
-            android:id="@+id/edtCustomerUsePhone"
+            android:id="@+id/edtUsePhone"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:ems="10"
@@ -44,6 +44,7 @@
             android:id="@+id/edtCurrentUsePoint"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:background="#DEDDDD"
             android:ems="10"
             android:inputType="number" />
 
