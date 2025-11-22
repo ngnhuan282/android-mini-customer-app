@@ -8,6 +8,31 @@
     android:orientation="vertical"
     tools:context=".PointListActivity">
 
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:padding="8dp">
+
+        <Button
+            android:id="@+id/btnExport"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:layout_marginEnd="4dp"
+            android:backgroundTint="#FF6F00"
+            android:text="Export &amp; Email" />
+
+        <Button
+            android:id="@+id/btnImport"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:layout_marginStart="4dp"
+            android:backgroundTint="#2196F3"
+            android:text="Import XML" />
+    </LinearLayout>
+
     <ListView
         android:id="@+id/lvCustomers"
         android:layout_width="match_parent"
