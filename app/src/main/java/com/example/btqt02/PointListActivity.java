@@ -38,7 +38,7 @@ public class PointListActivity extends AppCompatActivity {
     CustomerAdapter adapter;
     ListView lv;
     MyDatabaseHelper dbHelper;
-    Button btnInput, btnUse, btnList,btnExport, btnImport;
+    Button btnInput, btnUse, btnList,btnExport, btnImport,btnChangePass;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -70,6 +70,7 @@ public class PointListActivity extends AppCompatActivity {
         btnList = findViewById(R.id.btnListFromListActivity);
         btnExport = findViewById(R.id.btnExport);
         btnImport = findViewById(R.id.btnImport);
+        btnChangePass = findViewById(R.id.btnChangePass);
 
         btnInput.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -106,6 +107,14 @@ public class PointListActivity extends AppCompatActivity {
             intent.addCategory(Intent.CATEGORY_OPENABLE);
             intent.setType("text/xml"); // Chỉ lọc file XML hoặc text
             filePickerLauncher.launch(intent);
+        });
+
+        btnChangePass.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(PointListActivity.this, ChangePasswordActivity.class);
+                startActivity(intent);
+            }
         });
     }
 

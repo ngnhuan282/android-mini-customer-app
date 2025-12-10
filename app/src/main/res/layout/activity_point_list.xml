@@ -18,10 +18,10 @@
             android:id="@+id/btnExport"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_weight="1"
             android:layout_marginEnd="4dp"
+            android:layout_weight="1"
             android:backgroundTint="#FF6F00"
-            android:text="Export &amp; Email" />
+            android:text="Export" />
 
         <Button
             android:id="@+id/btnImport"
@@ -31,6 +31,15 @@
             android:layout_marginStart="4dp"
             android:backgroundTint="#2196F3"
             android:text="Import XML" />
+
+        <Button
+            android:id="@+id/btnChangePass"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:layout_marginStart="4dp"
+            android:backgroundTint="#8BC34A"
+            android:text="Đổi Pass" />
     </LinearLayout>
 
     <ListView
