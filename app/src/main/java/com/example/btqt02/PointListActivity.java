@@ -102,10 +102,9 @@ public class PointListActivity extends AppCompatActivity {
         btnExport.setOnClickListener(v -> exportToXMLAndEmail());
 
         btnImport.setOnClickListener(v -> {
-            // Mở trình quản lý file để chọn file XML
             Intent intent = new Intent(Intent.ACTION_OPEN_DOCUMENT);
             intent.addCategory(Intent.CATEGORY_OPENABLE);
-            intent.setType("text/xml"); // Chỉ lọc file XML hoặc text
+            intent.setType("text/xml");
             filePickerLauncher.launch(intent);
         });
 
@@ -133,14 +132,12 @@ public class PointListActivity extends AppCompatActivity {
 
     private void exportToXMLAndEmail() {
         try {
-            // 1. Lấy dữ liệu từ DB
-            loadData(); // Đảm bảo customerList mới nhất
+            loadData();
             if (customerList.isEmpty()) {
                 Toast.makeText(this, "Danh sách trống, không có gì để xuất!", Toast.LENGTH_SHORT).show();
                 return;
             }
 
-            // 2. Xây dựng chuỗi XML thủ công (StringBuilder)
             StringBuilder xmlBuilder = new StringBuilder();
             xmlBuilder.append("<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n");
             xmlBuilder.append("<customers>\n");
@@ -156,33 +153,20 @@ public class PointListActivity extends AppCompatActivity {
             }
             xmlBuilder.append("</customers>");
 
-            // 3. Lưu file vào thư mục riêng của App
             String fileName = "customers_export.xml";
-            //tao file nam trong thu muc rieng (null tuc thu muc goc cua app) ,null cho don gian va nhanh
-            //getExternalFilesDir chi luon luu vao thu muc trong app co the la (DOWNLOADS) ,(DOCUMENTS) ,...  nhung tat ca deu thuoc app
             File file = new File(getExternalFilesDir(null), fileName);
-            //chuyen ve byte ( thiet bi chi hieu du lieu bang so)
             FileOutputStream fos = new FileOutputStream(file);
             fos.write(xmlBuilder.toString().getBytes());
             fos.close();
 
-            // 4. Tạo Intent gửi Email (chia se file voi cac app khac)(cap quyen truyen cap den file do , tra ve uri de app khac tim den)
             Uri fileUri = FileProvider.getUriForFile(this, getPackageName() + ".provider", file);
-            // getpackagename de co they lay id app , roi chuoi "" phai trung voi ten trong manifest ,  android:authorities
-            //tao intent gui email
             Intent emailIntent = new Intent(Intent.ACTION_SEND);
-            //cho biet du lieu gui di la file xml
             emailIntent.setType("text/xml");
-            //them tieu de email
             emailIntent.putExtra(Intent.EXTRA_SUBJECT, "Danh sách khách hàng (XML)");
-            //noi dung email
             emailIntent.putExtra(Intent.EXTRA_TEXT, "Gửi bạn danh sách khách hàng từ ứng dụng.");
-            //dinh kem file vao
             emailIntent.putExtra(Intent.EXTRA_STREAM, fileUri);
-            //cap quyen cho app nhan file doc noi dung nhung k sua , xoa , thay doi
             emailIntent.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);
 
-            //mo app email de gui
             startActivity(Intent.createChooser(emailIntent, "Gửi file qua..."));
 
         } catch (Exception e) {
@@ -193,21 +177,15 @@ public class PointListActivity extends AppCompatActivity {
 
     private void importFromXML(Uri uri) {
         try {
-            //getContentResolver truy cap du lieu tu uri (lay du lieu tu uri)
             InputStream inputStream = getContentResolver().openInputStream(uri);
 
-            // Sử dụng DOM Parser để đọc XML
             DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
             DocumentBuilder builder = factory.newDocumentBuilder();
-            //parse InputStream chứa XML và trả về Document DOM (doc va xu ly du lieu ve cach co the xu ly)
             Document document = builder.parse(inputStream);
-            //giup doc file xml tu cac inputsteam,url , file
             document.getDocumentElement().normalize();// dua ve kieu <...> </...>
 
             NodeList nodeList = document.getElementsByTagName("customer");
-            //lay ra cac the customer (vi document la dom chua nhieu the )
             SQLiteDatabase db = dbHelper.getWritableDatabase();
-            //mo database de chuan bi ghi du lieu ( mo dtb va cap quyen ghi)
             int count = 0;
 
             // Duyệt qua từng thẻ <customer>
@@ -227,7 +205,6 @@ public class PointListActivity extends AppCompatActivity {
 
                     Cursor cursor = db.rawQuery("SELECT * FROM Customers WHERE phone = '" + phone + "'", null);
                     if (cursor.moveToFirst()) {
-                        // 2. Nếu có -> Cập nhật (Cộng chuỗi trực tiếp vào câu SQL)
                         String sqlUpdate = "UPDATE Customers SET " +
                                 "point = " + point + ", " +
                                 "note = '" + note + "', " +
@@ -236,7 +213,6 @@ public class PointListActivity extends AppCompatActivity {
 
                         db.execSQL(sqlUpdate);
                     } else {
-                        // 3. Nếu chưa -> Thêm mới (Cộng chuỗi trực tiếp)
                         String sqlInsert = "INSERT INTO Customers(phone, point, note, createdAt, updatedAt) VALUES (" +
                                 "'" + phone + "', " +
                                 point + ", " +
